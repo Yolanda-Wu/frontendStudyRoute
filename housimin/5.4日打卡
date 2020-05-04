@@ -1,0 +1,46 @@
+leetcode的反转链表原题206
+定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。
+循环解决方案
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    var pre = null;
+    var curr = head;
+    while(curr){
+        var nextTemp = curr.next;
+        curr.next=pre;
+        pre=curr;
+        curr=nextTemp;
+    }
+    return pre;
+};
+
+//递归解决方案
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var reverseList = function(head) {
+    if(head==null||head.next==null) return head;
+  
+   var newHead = reverseList(head.next);
+   head.next.next = head;
+   head.next=null;
+   return newHead;
+};
