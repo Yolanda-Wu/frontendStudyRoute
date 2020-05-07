@@ -38,7 +38,6 @@ var reverseList = function(head) {
  */
 var reverseList = function(head) {
     if(head==null||head.next==null) return head;
-
    var newHead = reverseList(head.next);
    head.next.next = head;
    head.next=null;
