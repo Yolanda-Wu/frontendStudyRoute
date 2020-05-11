@@ -12,6 +12,67 @@ console.log("heelo-")
 </details>
 
 
+## 5.10 leetcode
+
+- [x] 21. 合并两个有序链表
+- [x] 148. 排序链表
+- [ ] 25. K 个一组翻转链表
+
+<details>
+<summary>21. 合并两个有序链表</summary>
+
+https://leetcode-cn.com/problems/merge-two-sorted-lists/
+
+```js
+var mergeTwoLists = function(l1, l2) {
+    // 主要一个头结点保存开始的位置
+    let head = p = {}
+    while( l1 && l2 ){
+        if( l1.val < l2.val ){
+            p.next = l1
+            p = p.next
+            l1 = l1.next
+        } else {
+            p.next = l2
+            p = p.next
+            l2 = l2.next
+        }
+    }
+    if( l1 ){
+        p.next = l1 
+    } else {
+        p.next = l2
+    }
+    return head.next
+};
+```
+</details>
+
+<details>
+<summary>148. 排序链表</summary>
+
+https://leetcode-cn.com/problems/sort-list/
+
+```js
+var sortList = function(head) {
+    var stack = []
+    while( head ){
+        stack.push( head.val )
+        head = head.next
+    }
+    stack.sort( ( a, b ) => a - b )
+    var myHead = new ListNode()
+    var node = myHead
+
+    while( stack.length ){
+        var newNode = new ListNode( stack.shift() )
+        node.next = newNode
+        node = newNode
+    }
+    return myHead.next
+};
+```
+</details>
 
 
 ## 5.10 leetcode
