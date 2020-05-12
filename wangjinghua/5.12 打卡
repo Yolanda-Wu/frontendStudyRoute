@@ -1,0 +1,89 @@
+
+/*
+记录一个倒在字符串与数组转换上的笨方法
+public static  int romanToInt(String s) {
+		int Nums[]={1000, 500,100,50,10,5,1};
+	    String Romas[]={"M","D","C","L","X","V","I"};
+		int res=0;
+	    if(s=="IV"){  res=4;}
+	    else if(s=="IX"){  res=9;}
+	    else if(s=="XL"){  res= 40;}
+	    else if(s=="XC"){  res= 90;}
+	    else if(s=="CD"){  res=400;}
+	    else if(s=="CM"){  res= 900;}
+	    else{
+	         String[] arr = s.split("");
+	         for(int i=0;i<arr.length;i++){
+	            for(int j=0;j<Romas.length;j++){
+	                if(arr[i]==Romas[j]){
+	                res=res+Nums[j];
+	                }
+	            }
+	        }
+	    }
+	    return res;
+	}
+*/
+class Solution {
+    public static  int romanToInt(String s) {
+        int sum = 0;
+        int preNum = getValue(s.charAt(0));
+        for(int i = 1;i < s.length(); i ++) {
+            int num = getValue(s.charAt(i));
+            if(preNum < num) {
+                sum -= preNum;
+            } else {
+                sum += preNum;
+            }
+            preNum = num;
+        }
+        sum += preNum;
+        return sum;
+    }
+
+     public static int getValue(char ch) {
+        switch(ch) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
+    }
+}
+class Solution {
+    int Nums[]={1000, 900, 500, 400,100,90,50,40,10,9,5,4,1};
+    String Romas[]={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    StringBuilder stringB=new StringBuilder();
+    public String intToRoman(int num) {
+       // 将输入进来的数字按这些规格整除，得到几个罗马字符，再把特殊情况列出
+      //纠正：复习了贪心算法,还有数组的创建
+      //再纠正，改用for循环比while好
+     for(int i = 0 ; i < Nums.length ; i++){
+            while(num >= Nums[i]){
+                stringB.append(Romas[i]) ;
+                num -= Nums[i] ;
+            }
+            if(num == 0){
+                break ;
+            }
+        }
+        return stringB.toString() ;
+    }
+}
+/*int Nums[]={1000, 900, 500, 400,100,90,50,40,10,9,5,4,1};
+      String Romas[]={"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    StringBuilder stringB=new StringBuilder();
+    int index=0;
+    while(index < 13){
+        while(num >= Nums[index]){//此处等号，贪心
+            stringB.append(Romas[index]); 
+            num -= Nums[index];
+        }
+        index++;
+    }
+    return stringB.toString();//调用方法返回字符串
+*/
