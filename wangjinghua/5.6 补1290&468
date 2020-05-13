@@ -1,0 +1,95 @@
+//1290
+class Solution {
+   public int getDecimalValue(ListNode head){
+        int sum=0;
+        while(head!=null){
+            sum=sum*2+head.val;//为1 的值要么多层乘2，要么被加
+            head=head.next;
+        }
+        return sum;
+    }
+}
+
+//纠正：首先head在此处并不是头节点，而是第一个节点，加next计算后，错过一个。
+//其次，开头写法的次方表示错误。
+      //我的思路：遍历链表，得到长度。取出值，分别乘2的n次方
+        //1\遍历链表
+       /* int n=getLength(head);
+        int sum=0;
+        if(head==null){
+            return 0;
+        }else{
+            for(int i=n;i>=0;i--){
+                sum=sum+head.val*(2^i);
+                head=head.next;
+            }
+            return sum;
+        }
+    }
+    public int getLength(ListNode head){
+        int n=0;
+        if(head!=null){
+            n++;
+            head=head.next;
+        }
+        return n;
+      }
+      */
+      
+      
+      import java.net.*;
+class Solution {
+    //主函数 根据.与:分辨
+  public String validIPAddress(String IP) {
+    if (IP.chars().filter(ch -> ch == '.').count() == 3) {
+      return validateIPv4(IP);
+    }
+    else if (IP.chars().filter(ch -> ch == ':').count() == 7) {
+      return validateIPv6(IP);
+    }
+    else return "Neither";
+  }
+    public String validateIPv4(String IP) {
+       String[] nums = IP.split("\\.", -1);
+    for (String x : nums) {
+      // Validate integer in range (0, 255):
+      // 1. length of chunk is between 1 and 3
+      if (x.length() == 0 || x.length() > 3) return "Neither";
+      // 2. no extra leading zeros
+      if (x.charAt(0) == '0' && x.length() != 1) return "Neither";
+      // 3. only digits are allowed
+      for (char ch : x.toCharArray()) {
+        if (! Character.isDigit(ch)) return "Neither";
+      }
+      // 4. less than 255
+      if (Integer.parseInt(x) > 255) return "Neither";
+    }
+    return "IPv4";
+  }
+
+  public String validateIPv6(String IP) {
+    String[] nums = IP.split(":", -1);
+    String hexdigits = "0123456789abcdefABCDEF";
+    for (String x : nums) {
+      // Validate hexadecimal in range (0, 2**16):
+      // 1. at least one and not more than 4 hexdigits in one chunk
+      if (x.length() == 0 || x.length() > 4) return "Neither";
+      // 2. only hexdigits are allowed: 0-9, a-f, A-F
+      for (Character ch : x.toCharArray()) {
+        if (hexdigits.indexOf(ch) == -1) return "Neither";
+      }
+    }
+    return "IPv6";
+  }
+
+    
+}
+//我的思路：判断.还是:，分别设立条件
+//4：不能0开头  纠正：想出来了不会写
+/*
+ try{
+            return (InetAddress.getByName(IP)instanceof Inet6Address)?"Ipv6":"Ipv4";
+        }catch(Exception e){
+            return "Neither";
+        }
+*/
