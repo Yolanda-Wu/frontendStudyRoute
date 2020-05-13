@@ -11,8 +11,86 @@ console.log("heelo-")
 ```
 </details>
 
+## 5.13
 
-## 5.10 leetcode
+- [x] 1360. 日期之间隔几天
+- [ ] 93. 复原IP地址
+- [ ] 1028. 从先序遍历还原二叉树
+
+
+<details>
+<summary>1360. 日期之间隔几天</summary>
+
+https://leetcode-cn.com/problems/number-of-days-between-two-dates/
+
+```js
+/**
+ * @param {string} date1
+ * @param {string} date2
+ * @return {number}
+ */
+var daysBetweenDates = function(date1, date2) {
+    var myDate1 = new Date( date1 ).getTime()
+    var myDate2 = new Date( date2 ).getTime()
+    var aDay = 1000 * 60 * 60 * 24
+    var days = Math.abs( myDate2 - myDate1 ) / aDay
+    return days
+};
+```
+
+</details>
+
+
+## 5.12 leetcode
+
+- [x] 13. 罗马数字转整数
+- [x] 12. 整数转罗马数字
+- [ ]  32. 最长有效括号
+
+<details>
+<summary>13. 罗马数字转整数</summary>
+
+https://leetcode-cn.com/problems/roman-to-integer/
+
+**要点：**组合相加
+
+```js
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var romanToInt = function(s) {
+    var map = {
+        "I": 1,
+        "IV": 4,
+        "V": 5,
+        "IX": 9,
+        "X": 10,
+        "XL": 40,
+        "L": 50,
+        "XC": 90,
+        "C": 100,
+        "CD": 400,
+        "D": 500,
+        "CM": 900,
+        "M": 1000
+    }
+    let res = 0
+    for( let i = 0; i < s.length; ){
+        if( i + 1 < s.length && map[ s.slice(i, i+2) ] ){
+            res += map[ s.slice(i, i+2) ]
+            i+=2
+        } else {
+            res += map[ s.slice(i, i+1) ]
+            i++
+        }
+    }
+    return res
+};
+```
+</details>
+
+## 5.11 leetcode
 
 - [x] 21. 合并两个有序链表
 - [x] 148. 排序链表
