@@ -1,0 +1,39 @@
+HTML5新特性
+1、什么是HTML5
+HTML5是HTML标准的最新演进版本，它是一个新的HTML语言版本，属性和行为，同时包含了一系列可以让Web站点
+和应用更加多样化，功能更强大的技术。
+2、新特性
+1）语义特性，添加<header></header><nav></nav>等标签
+2）多媒体，用于媒介回放的video和audio元素
+3）图像效果，用于绘画的canvas元素，svg元素等
+4）离线&存储，对本地离线存储的更好的支持，local Store，Cookies等
+5）设备兼容特性，HTML5提供了前所未有的数据和应用接入开放接口，使外部应用可以直接和浏览器
+内部的数据直接相连
+6）连接特性，更有效的连接工作效率，使得基于页面的实时聊天，更快速的网页游戏体验，更优化的在线交流
+得到了实现。HTML5拥有更有效的服务器推送技术，server-sent event和webSockets就是其中两个特性
+这两个特性能够帮助我们实现服务器将数据“推送”到客户端的功能
+7）性能和集成特性，HTML5会通过XMLHTTPRequest2等技术，帮助Web应用和网站在多样的环境中更快速的工作
+3、新增标签
+1）多媒体<audio></audio>, <video><video>,<source></source>, <embed></embed>, <track></track>
+2）新表单元素<datalist>、<output>、<keygen>
+3)新文档节段和纲要
+<header>页面头部、<section>章节、<aside>边栏、<article>文档内容、<footer>页面底部、<section>章节、<aside>边栏、<article>文档内容、<footer>页面底部
+3、浏览器本地存储中cookie和localstorage有什么区别？localStorage如何存储和删除数据
+共同点：sessionStorage、localStorage和cookie都由浏览器存储在本地的数据
+区别：
+1、cookie数据始终在同源http请求中携带（即使不需要），即cookie在浏览器和服务器中回传，
+localStorage不会把数据发送给浏览器，仅在本地保存
+2、cookie数据还有路径（path）的概念，可以限制cookie只属于某个路径下
+存储大小限制也不同，cookie数据不超过4K，因为每次http请求都会携带cookie，所以cookie只适合
+存储很小的数据，例如会话标识。localStorage虽然也有存储大小的限制，但比cookie大得多。可以达到
+5M甚至更大，localStorage不会自动把数据发给服务器
+3、cookie只有在设置cookie过期时间之前一直有效，即使窗口关闭或者浏览器关闭。api接口使用更方便
+。而cookie的原生接口不友好。需要程序员自己封装。
+4、localStorage支持事件通知机制，可以将数据更新的通知发送给监听者。api接口使用更加方便。
+而cookie的原生接口不友好。需要程序员自己封装。
+HTML5提供了localStorage对象可以长期将数据保存在客户端，除非人为清除。localStorage提供了几个方法
+1.存储:localStorage.setItem(key,value)如果key存在时，更新value
+2.获取 localStorage.getItem(key)如果key不存在返回null
+3.删除 localStorage.removeItem(key)一旦删除，key对应的数据将会全部删除
+4.全部清除 localStorage.clear() 使用removeItem逐个删除太麻烦，可以使用clear,执行的后果是会清除所有localStorage对象保存的数据
+
