@@ -1,0 +1,38 @@
+leetcode93
+ 复原IP地址
+ 给定一个只包含数字的字符串，复原它并返回所有可能的 IP 地址格式。
+
+有效的 IP 地址正好由四个整数（每个整数位于 0 到 255 之间组成），整数之间用 '.' 分隔。
+示例:
+
+输入: "25525511135"
+输出: ["255.255.11.135", "255.255.111.35"]
+
+1)暴力迭代法
+/**
+ * @param {string} s
+ * @return {string[]}
+ */
+var restoreIpAddresses = function(s) {
+    var ip =[];
+    for(var a=1;a<4;a++){
+        for(var b=1;b<4;b++){
+            for(var c=1;c<4;c++){
+                    n1=parseInt(s.slice(0,a));
+                    n2 =parseInt(s.slice(a,a+b));
+                    n3=parseInt(s.slice(a+b,a+b+c));
+                    n4=parseInt(s.slice(a+b+c));
+                    if(n1>=0&&n1<=255&&n2>=0&&n2<=255&&n3>=0&&n3<=255&&n4>=0&&n4<=255){
+                        const x = n1+'.'+n2+'.'+n3+'.'+n4;
+                        if(x.length===s.length+3){
+                            ip.push(x)
+                        }
+                    }
+                }
+        }
+    }
+return unique(ip);
+};
+function unique (arr) {
+  return Array.from(new Set(arr))
+}
