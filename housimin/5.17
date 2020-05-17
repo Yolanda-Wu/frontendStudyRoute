@@ -1,0 +1,55 @@
+1、说一说闭包
+1）定义
+闭包就是能够读取其他函数内部变量的函数。
+由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成"定义在一个函数内部的函数"。
+所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。
+
+2）闭包的用途
+一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中
+
+3）使用闭包的注意点
+1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。
+解决方法是，在退出函数之前，将不使用的局部变量全部删除。
+2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），
+把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。
+
+2、原型和原型链  --  为什么要有原型链
+https://www.jianshu.com/p/ddaa5179cda6
+http://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html
+1）原型
+在JavaScript中，每当定义一个函数数据类型(普通函数、类)时候，都会天生自带一个prototype属性，
+这个属性指向函数的原型对象，并且这个属性是一个对象数据类型的值。
+
+原型对象就相当于一个公共的区域，所有同一个类的实例都可以访问到这个原型对象，我们可以将对象中共有的内容，统一设置到原型对象中。
+
+2）原型链
+a、__proto__和constructor
+每一个对象数据类型(普通的对象、实例、prototype......)也天生自带一个属性__proto__，属性值是当前实例所属类的原型(prototype)。
+原型对象中有一个属性constructor, 它指向函数对象。
+    function Person() {}
+    var person = new Person()
+    console.log(person.__proto__ === Person.prototype)//true
+    console.log(Person.prototype.constructor===Person)//true
+    //顺便学习一个ES5的方法,可以获得对象的原型
+    console.log(Object.getPrototypeOf(person) === Person.prototype) // true
+ b、何为原型链
+ 在JavaScript中万物都是对象，对象和对象之间也有关系，并不是孤立存在的。对象之间的继承关系，在JavaScript中是通过prototype对象指向父类对象，
+ 直到指向Object对象为止，
+ 这样就形成了一个原型指向的链条，专业术语称之为原型链。
+举例说明:person → Person → Object ，普通人继承人类，人类继承对象类
+
+当我们访问对象的一个属性或方法时，它会先在对象自身中寻找，如果有则直接使用，如果没有则会去原型对象中寻找，
+如果找到则直接使用。如果没有则去原型的原型中寻找,直到找到Object对象的原型，Object对象的原型没有原型，
+如果在Object原型中依然没有找到，则返回undefined。
+
+我们可以使用对象的hasOwnProperty()来检查对象自身中是否含有该属性；
+使用in检查对象中是否含有某个属性时，如果对象中没有但是原型中有，也会返回true
+    function Person() {}
+    Person.prototype.a = 123;
+    Person.prototype.sayHello = function () {
+      alert("hello");
+    };
+    var person = new Person()
+    console.log(person.a)//123
+    console.log(person.hasOwnProperty('a'));//false
+    console.log('a'in person)//true
