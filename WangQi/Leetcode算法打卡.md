@@ -19,6 +19,23 @@ var maxSubArray = function(nums) {
 };
 ```
 
+###### 152.乘积最大子数组
+
+```javascript
+var maxProduct = function(nums) {
+    //类似最大和 按位相乘比较大小
+    let max = nums[0];
+    for(let i = 0;i<nums.length;i++)
+    {
+        if(nums[i-1]*nums[i]>0){
+            nums[i] = nums[i]*nums[i-1];
+        }
+        max = Math.max(max,nums[i])
+    }
+    return max;
+};
+```
+
 
 
 ###### 面试题38.字符串排列***
@@ -295,3 +312,209 @@ var maxProfit = function(prices) {
 
 
 ###### 233.数字1的个数
+
+#### 5.18
+
+###### 557.反转字符串中单词Ⅲ
+
+```javascript
+var reverseWords = function(s) {
+    let string = s.split("").reverse().join("");
+    let reverse = string.split(" ").reverse().join(" ");
+    return reverse;
+};
+
+//split("a")将字符串按a分割，返回数组
+//reverse()反转字符串
+//join("")将数组拼接为字符串
+```
+
+
+
+###### 54.螺旋矩阵
+
+```javascript
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+    let res = new Array();
+    if(matrix.length<1)
+    return [];
+    var m = matrix.length;
+    var n = matrix[0].length;
+    if(n == 1)
+    return matrix;
+    var T = 0;//上边界
+    var D = m;//下边界
+    var L = 0;//左边界
+    var R = n;//右边界
+    var x = 0;//列坐标 
+    var y = 0;//行坐标
+
+    var state = "R";
+    T = 1;
+    for(let i = 0;i<m*n;i++){
+        res[i] = matrix[y][x];
+        switch(state){
+            case 'R':
+            x++;
+            if(x == R-1){
+                state = "D";
+                R--;
+            }
+            break;
+            case 'D':
+            y++;
+            if(y == D-1){
+                state = "L";
+                D--;
+            }
+            break;
+            case 'L':
+            x--;
+            if(x == L){
+                state = "U";
+                L++;
+            }
+            break;
+            case 'U':
+            y--;
+            if(y == T){
+                state="R";
+                T++;
+            }
+            break;
+        }
+    }
+    return res;
+};
+```
+
+
+
+###### 920.播放列表的数量
+
+#### 5.19
+
+###### 680.验证回文字符串Ⅱ
+
+```javascript
+var validPalindrome = function (s) {
+//双指针法 从左右侧分别比较是否相等
+//若不相等 则删去左或右
+    var isPalindrome = function (s, l, r) {
+        while (l < r) {
+            if (s[l] !== s[r]) {
+                return false;
+            }
+            l++;
+            r--
+        }
+        return true;
+    }
+
+    let l = 0;
+    let r = s.length - 1;
+    while (l < r) {
+        if (s[l] !== s[r]) {
+            return isPalindrome(s, l + 1, r) || isPalindrome(s, l, r - 1);
+        }
+        l++;
+        r--;
+
+    }
+    return true;
+};
+```
+
+
+
+###### 9.回文数
+
+```javascript
+var isPalindrome = function(x) {
+    if(x<0)
+    return false;
+    else{
+        let str = x + "";
+        let reverse = str.split("").reverse().join("");
+        if(str == reverse){
+            return true;
+        }
+        else{
+            return false
+        }
+    }
+};
+
+```
+
+
+
+###### 5.最长回文子串
+
+```javascript
+//动态规划解法
+//公式推算 dp[i][j]=dp[i+1][j-1]&&（si==sj)
+//dp[i][j]表示子字符串Sij是否回文
+var longestPalindrome = function(s) {
+    const len = s.length;
+    const dp = Array.from(new Array(len),() => new Array(len).fill(false))
+    let res = ''
+    // 第一层倒着循环，才能保证 dp[i+1][j-1] 已经存在
+    for(let i = len - 1; i >= 0; i--) {
+        for(let j = i;j < len; j++) {
+            // 判断i 和 j下标的字符串相等时
+            //如果间隔小于等于2，则代表length为 3以内的子字符串，则一定是回文子串
+            //如果间隔 大于2时，则需要判断 dp[i+1][j-1] 是否为回文子串
+            dp[i][j] = s.charAt(i) === s.charAt(j) && (j - i <= 2 || dp[i+1][j-1])
+            // 判断符合回文的最大子字符串
+            if(dp[i][j] && j - i >= res.length){
+                res = s.slice(i,j+1)
+            }
+        }
+    }
+    return res;
+};
+
+```
+
+
+
+###### 124.二叉树最大路径和
+
+
+
+#### 5.20
+
+###### 463 岛屿周长
+
+```javascript
+var islandPerimeter = function(grid) {
+    //陆地的个数*4，减去重合边*2
+    let num = 0;
+    for(let i = 0;i<grid.length;i++){
+        for(let j = 0;j<grid[i].length;j++){
+            if(grid[i][j] == 1){
+                num += 4;
+                if(i>0&&grid[i-1][j]==1){
+                    num -= 2;
+                }
+                if(j>0&&grid[i][j-1]==1){
+                    num -= 2;
+                }
+            }
+        }
+    }
+    return num;
+};
+```
+
+
+
+###### 701.二叉搜索树插入
+
+###### 1335.工作计划最低难度
+
