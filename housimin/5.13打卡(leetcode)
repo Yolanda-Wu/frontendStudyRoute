@@ -1,0 +1,34 @@
+补充知识点
+关于日期和时间戳的转换
+1.将日期格式转化为时间戳：   
+var date = new Date('2018-06-08 18:00:00');
+有三种方式获得：
+1）var time1 = date.getTime()//1528452000000
+2)var time2 = date.valueOf()//1528452000000
+3)var time3 = Date.parse(date)//1528452000000
+三者都是转换为毫秒
+注：在苹果手机里这样使用会因为日期中间有空格导致结果为NaN,可以将日期分割然后进行转化
+        var str='2018-06-08 18:00:00' ;
+        var time=new Date(str.split(" ")).getTime();
+2、时间戳转换为日期
+function timestampToTime(timeStamp){
+    timeStamp = timeStamp.toString().length===10? timeStamp*1000 :timeStamp;
+    var date = new Date(timeStamp)
+    var Y = date.getFullYear();
+    var M =date.getMonth()+1<10? '0'+(date.getMonth()+1) : date.getMonth()+1;
+    var D = date.getDate()<10?'0'+date.getDate() : date.getDate();
+    var H = date.getHours();
+    var Mi = date.getMinutes()<10? '0'+date.getMinutes() : date.getMinutes();
+    var S = date.getSeconds()<10? '0'+date.getSeconds() : date.getSeconds();
+    return Y+'-'+M+'-'+D+' '+H+':'+Mi+':'+S
+    
+}
+1360. 日期之间隔几天
+var daysBetweenDates = function(date1, date2) {
+      var  time1= Date.parse(new Date(date1));
+      var  time2 =Date.parse(new Date(date2));
+      var sub = Math.abs((time1-time2)/(3600*24000));
+      return sub;
+
+};
+
